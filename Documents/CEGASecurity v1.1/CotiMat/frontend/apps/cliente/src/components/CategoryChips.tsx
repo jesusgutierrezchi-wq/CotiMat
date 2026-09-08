@@ -16,10 +16,10 @@ export default function CategoryChips({
       <button
         type="button"
         onClick={() => onSelect(null)}
-        className={`shrink-0 border-2 px-3 py-1.5 font-sans text-sm font-semibold ${
+        className={`shrink-0 rounded-full border px-3 py-1.5 text-sm font-semibold ${
           selected === null
-            ? 'border-ink bg-ink text-paper'
-            : 'border-steel/50 bg-paper text-steel hover:border-ink hover:text-ink'
+            ? 'border-ink bg-ink text-white'
+            : 'border-border bg-surface text-muted hover:border-ink hover:text-ink'
         }`}
       >
         Todos
@@ -29,10 +29,10 @@ export default function CategoryChips({
           key={category.id}
           type="button"
           onClick={() => onSelect(category.id)}
-          className={`shrink-0 border-2 px-3 py-1.5 font-sans text-sm font-semibold ${
+          className={`shrink-0 rounded-full border px-3 py-1.5 text-sm font-semibold ${
             selected === category.id
-              ? 'border-ink bg-ink text-paper'
-              : 'border-steel/50 bg-paper text-steel hover:border-ink hover:text-ink'
+              ? 'border-ink bg-ink text-white'
+              : 'border-border bg-surface text-muted hover:border-ink hover:text-ink'
           }`}
         >
           {category.name}

@@ -8,13 +8,7 @@
   }
 
   body {
-    @apply bg-concrete text-ink antialiased;
-  }
-
-  h1, h2, h3, h4 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.01em;
+    @apply bg-canvas text-ink font-sans antialiased;
   }
 
   table {
@@ -24,31 +18,31 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 border-[1.5px] border-ink px-4 py-2 font-sans text-sm font-semibold uppercase tracking-wide shadow-tag transition-transform active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 font-sans text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-primary {
-    @apply btn bg-safety text-paper border-ink;
+    @apply btn bg-accent text-white hover:bg-accent/90;
   }
 
   .btn-secondary {
-    @apply btn bg-paper text-ink;
+    @apply btn border border-border bg-surface text-ink hover:bg-canvas;
   }
 
   .btn-ghost {
-    @apply btn border-transparent bg-transparent shadow-none px-2;
+    @apply btn bg-transparent px-2 text-ink hover:bg-canvas;
   }
 
   .panel {
-    @apply border-[1.5px] border-ink bg-paper shadow-tag;
+    @apply rounded-xl border border-border bg-surface;
   }
 
   .field-label {
-    @apply block font-sans text-xs font-semibold uppercase tracking-wide text-steel mb-1;
+    @apply mb-1 block font-sans text-sm font-medium text-ink;
   }
 
   .field-input {
-    @apply w-full border-[1.5px] border-ink bg-paper px-3 py-2 font-sans text-sm text-ink placeholder:text-steel/60 focus:outline-none focus:ring-2 focus:ring-blueprint;
+    @apply w-full rounded-lg border border-border bg-surface px-3 py-2 font-sans text-sm text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40;
   }
 
   .field-error {

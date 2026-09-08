@@ -76,7 +76,7 @@ export function Categorias() {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-3xl font-bold uppercase tracking-wide text-ink">Categorías</h1>
+      <h1 className="mb-6 text-2xl font-semibold tracking-tight text-ink">Categorías</h1>
 
       <form onSubmit={handleCreate} className="panel mb-6 flex flex-wrap items-end gap-3 p-4">
         <div className="flex-1 min-w-[220px]">
@@ -119,7 +119,7 @@ export function Categorias() {
               return (
                 <li
                   key={category.id}
-                  className="flex flex-wrap items-center justify-between gap-3 border-b border-steel/20 px-4 py-3 last:border-b-0"
+                  className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 last:border-b-0"
                 >
                   {isEditingRow ? (
                     <input
@@ -129,7 +129,7 @@ export function Categorias() {
                       autoFocus
                     />
                   ) : (
-                    <span className="font-sans text-sm font-semibold text-ink">{category.name}</span>
+                    <span className="font-sans text-sm font-medium text-ink">{category.name}</span>
                   )}
 
                   <div className="flex items-center gap-2">
@@ -155,14 +155,14 @@ export function Categorias() {
                       <>
                         <button
                           type="button"
-                          className="btn-ghost border-[1.5px] border-ink px-3 py-1.5 text-xs shadow-none"
+                          className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-canvas"
                           onClick={() => startEdit(category)}
                         >
                           Editar
                         </button>
                         <button
                           type="button"
-                          className="btn-ghost border-[1.5px] border-rejected px-3 py-1.5 text-xs text-rejected shadow-none"
+                          className="rounded-lg border border-rejected px-3 py-1.5 text-xs font-medium text-rejected transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={deleteMutation.isPending}
                           onClick={() => deleteMutation.mutate(category.id)}
                         >

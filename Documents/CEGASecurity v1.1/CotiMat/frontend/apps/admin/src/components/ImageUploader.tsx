@@ -39,11 +39,11 @@ export function ImageUploader({ currentImageUrl, onUpload, isUploading, error }:
     <div className="panel p-4">
       <p className="field-label">Imagen del material</p>
       <div className="flex items-start gap-4">
-        <div className="flex h-28 w-28 shrink-0 items-center justify-center border-[1.5px] border-ink bg-concrete">
+        <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-lg border border-border bg-canvas">
           {displayUrl ? (
-            <img src={displayUrl} alt="Vista previa del material" className="h-full w-full object-cover" />
+            <img src={displayUrl} alt="Vista previa del material" className="h-full w-full rounded-lg object-cover" />
           ) : (
-            <span className="px-2 text-center font-sans text-xs text-steel">Sin imagen</span>
+            <span className="px-2 text-center font-sans text-xs text-muted">Sin imagen</span>
           )}
         </div>
         <div className="flex flex-col gap-2">
@@ -62,7 +62,7 @@ export function ImageUploader({ currentImageUrl, onUpload, isUploading, error }:
           >
             {isUploading ? 'Subiendo…' : currentImageUrl ? 'Reemplazar imagen' : 'Subir imagen'}
           </button>
-          <p className="font-sans text-xs text-steel">JPG, PNG o WEBP · máx. 5MB</p>
+          <p className="font-sans text-xs text-muted">JPG, PNG o WEBP · máx. 5MB</p>
           {(localError || error) && <p className="field-error">{localError || error}</p>}
         </div>
       </div>

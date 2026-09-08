@@ -147,12 +147,12 @@ export function MaterialForm() {
       <button
         type="button"
         onClick={() => navigate('/materiales')}
-        className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-steel hover:text-ink"
+        className="mb-4 font-sans text-sm font-medium text-muted hover:text-ink"
       >
         ← Volver a materiales
       </button>
 
-      <h1 className="mb-6 font-display text-3xl font-bold uppercase tracking-wide text-ink">
+      <h1 className="mb-6 text-2xl font-semibold tracking-tight text-ink">
         {isEditing ? 'Editar material' : 'Nuevo material'}
       </h1>
 
@@ -234,7 +234,7 @@ export function MaterialForm() {
             {isSaving ? 'Guardando…' : isEditing ? 'Guardar cambios' : 'Crear material'}
           </button>
           {!isEditing && (
-            <p className="mt-2 font-sans text-xs text-steel">
+            <p className="mt-2 font-sans text-xs text-muted">
               Tras crear el material podrás subir su imagen en la siguiente pantalla.
             </p>
           )}
@@ -249,7 +249,7 @@ export function MaterialForm() {
               error={imageError}
             />
           ) : (
-            <div className="panel p-4 font-sans text-sm text-steel">
+            <div className="panel p-4 font-sans text-sm text-muted">
               Guarda el material para habilitar la carga de imagen.
             </div>
           )}

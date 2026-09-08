@@ -26,20 +26,20 @@ export default function CartBar() {
   if (count === 0) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-ink bg-paper shadow-tag-lg lg:inset-x-auto lg:bottom-auto lg:right-6 lg:top-20 lg:w-72 lg:border-2">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 lg:mx-0 lg:flex-col lg:items-stretch lg:gap-3 lg:p-4">
+    <div className="fixed inset-x-3 bottom-3 z-40 rounded-xl border border-border bg-surface shadow-md sm:inset-x-4 sm:bottom-4 lg:inset-x-auto lg:bottom-auto lg:right-6 lg:top-20 lg:w-72">
+      <div className="flex items-center justify-between gap-3 px-4 py-3 lg:flex-col lg:items-stretch lg:gap-3 lg:p-4">
         <div className={`flex-1 lg:flex-none ${pulsing ? 'pulse-once' : ''}`}>
-          <p className="font-sans text-xs font-medium text-steel">
-            {count} {count === 1 ? 'material' : 'materiales'} · {formatCurrency(total)}
+          <p className="text-xs font-medium text-muted">
+            {count} {count === 1 ? 'material' : 'materiales'}
           </p>
-          <p className="hidden font-display text-3xl font-bold leading-none text-ink lg:block">
+          <p className="text-xl font-semibold leading-none tabular-nums text-accent lg:text-2xl">
             {formatCurrency(total)}
           </p>
         </div>
         <button
           type="button"
           onClick={() => navigate('/cotizacion')}
-          className="shrink-0 bg-safety px-5 py-2.5 font-sans text-sm font-semibold text-paper hover:bg-ink lg:w-full"
+          className="shrink-0 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent/90 lg:w-full"
         >
           Ver cotización
         </button>

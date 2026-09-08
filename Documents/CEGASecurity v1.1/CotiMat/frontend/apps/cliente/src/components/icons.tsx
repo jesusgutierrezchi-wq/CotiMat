@@ -5,8 +5,8 @@ export function CartIcon({ className = '' }: { className?: string }) {
       fill="none"
       stroke="currentColor"
       strokeWidth={2}
-      strokeLinecap="square"
-      strokeLinejoin="miter"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
       aria-hidden="true"
     >
@@ -24,15 +24,15 @@ export function StackIcon({ className = '' }: { className?: string }) {
       fill="none"
       stroke="currentColor"
       strokeWidth={1.6}
-      strokeLinecap="square"
-      strokeLinejoin="miter"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
       aria-hidden="true"
     >
-      <rect x="3" y="3" width="8" height="8" />
-      <rect x="13" y="3" width="8" height="8" />
-      <rect x="3" y="13" width="8" height="8" />
-      <rect x="13" y="13" width="8" height="8" />
+      <rect x="3" y="3" width="8" height="8" rx="1.5" />
+      <rect x="13" y="3" width="8" height="8" rx="1.5" />
+      <rect x="3" y="13" width="8" height="8" rx="1.5" />
+      <rect x="13" y="13" width="8" height="8" rx="1.5" />
     </svg>
   );
 }
@@ -62,8 +62,8 @@ export function TrashIcon({ className = '' }: { className?: string }) {
       fill="none"
       stroke="currentColor"
       strokeWidth={1.8}
-      strokeLinecap="square"
-      strokeLinejoin="miter"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
       aria-hidden="true"
     >

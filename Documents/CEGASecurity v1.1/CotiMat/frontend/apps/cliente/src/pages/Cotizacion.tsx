@@ -77,13 +77,15 @@ export default function Cotizacion() {
   if (lines.length === 0) {
     return (
       <div className="mx-auto max-w-xl px-4 py-16 text-center sm:px-6">
-        <p className="font-display text-3xl font-bold text-ink">Tu cotización está vacía</p>
-        <p className="mt-2 font-sans text-sm text-steel">
+        <p className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+          Tu cotización está vacía
+        </p>
+        <p className="mt-2 text-sm text-muted">
           Agrega materiales del catálogo para armar tu cotización.
         </p>
         <Link
           to="/"
-          className="mt-6 inline-block bg-ink px-6 py-2.5 font-sans text-sm font-semibold text-paper hover:bg-safety"
+          className="mt-6 inline-block rounded-lg bg-accent px-6 py-2.5 text-sm font-semibold text-white hover:bg-accent/90"
         >
           Ir al catálogo
         </Link>
@@ -92,27 +94,29 @@ export default function Cotizacion() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
-      <h1 className="font-display text-3xl font-bold text-ink">Tu cotización</h1>
-      <p className="mt-1 font-sans text-sm text-steel">
-        Revisa cantidades y envíanos tus datos para generar tu folio.
-      </p>
-
-      <div className="mt-5">
-        <QuoteItemsTable
-          lines={tableLines}
-          total={total}
-          editable
-          onQuantityChange={setQuantity}
-          onRemove={removeLine}
-        />
+    <div className="mx-auto max-w-2xl space-y-6 px-4 py-6 sm:px-6">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+          Tu cotización
+        </h1>
+        <p className="mt-1 text-sm text-muted">
+          Revisa cantidades y envíanos tus datos para generar tu folio.
+        </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-6 border-2 border-ink bg-paper p-4 shadow-tag sm:p-6">
-        <h2 className="font-display text-xl font-bold text-ink">Tus datos</h2>
+      <QuoteItemsTable
+        lines={tableLines}
+        total={total}
+        editable
+        onQuantityChange={setQuantity}
+        onRemove={removeLine}
+      />
+
+      <form onSubmit={handleSubmit(onSubmit)} className="rounded-xl border border-border bg-surface p-4 sm:p-6">
+        <h2 className="text-xl font-semibold tracking-tight text-ink">Tus datos</h2>
 
         <div className="mt-4">
-          <label htmlFor="clientPhone" className="block font-sans text-sm font-medium text-ink">
+          <label htmlFor="clientPhone" className="block text-sm font-medium text-ink">
             Teléfono (10 dígitos)
           </label>
           <input
@@ -121,15 +125,15 @@ export default function Cotizacion() {
             inputMode="numeric"
             placeholder="5512345678"
             {...register('clientPhone')}
-            className="mt-1 w-full border-2 border-ink bg-paper px-3 py-2.5 font-sans text-sm text-ink focus:outline-none focus:ring-2 focus:ring-safety"
+            className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40"
           />
           {errors.clientPhone && (
-            <p className="mt-1 font-sans text-xs text-rejected">{errors.clientPhone.message}</p>
+            <p className="mt-1 text-xs text-rejected">{errors.clientPhone.message}</p>
           )}
         </div>
 
         <div className="mt-4">
-          <label htmlFor="clientName" className="block font-sans text-sm font-medium text-ink">
+          <label htmlFor="clientName" className="block text-sm font-medium text-ink">
             Nombre (opcional)
           </label>
           <input
@@ -137,12 +141,12 @@ export default function Cotizacion() {
             type="text"
             placeholder="¿Cómo te llamas?"
             {...register('clientName')}
-            className="mt-1 w-full border-2 border-ink bg-paper px-3 py-2.5 font-sans text-sm text-ink focus:outline-none focus:ring-2 focus:ring-safety"
+            className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40"
           />
         </div>
 
         {submitError && (
-          <p className="mt-4 border-2 border-rejected bg-rejected/10 px-3 py-2 font-sans text-sm text-rejected">
+          <p className="mt-4 rounded-lg border border-rejected/30 bg-red-50 px-3 py-2 text-sm text-rejected">
             {submitError}
           </p>
         )}
@@ -150,7 +154,7 @@ export default function Cotizacion() {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="mt-5 w-full bg-safety py-3 font-sans text-sm font-semibold text-paper hover:bg-ink disabled:opacity-60"
+          className="mt-5 w-full rounded-lg bg-accent py-3 text-sm font-semibold text-white hover:bg-accent/90 disabled:opacity-60"
         >
           {mutation.isPending ? 'Enviando…' : 'Enviar cotización'}
         </button>

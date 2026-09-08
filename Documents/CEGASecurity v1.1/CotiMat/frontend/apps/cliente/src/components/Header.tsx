@@ -7,16 +7,19 @@ export default function Header() {
   const count = cartCount(lines);
 
   return (
-    <header className="sticky top-0 z-30 border-b-2 border-ink bg-paper">
+    <header className="sticky top-0 z-30 border-b border-border bg-surface">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="font-display text-2xl font-bold tracking-tight text-ink">
-          Coti<span className="text-safety">Mat</span>
+        <Link to="/" className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent font-bold text-white">
+            C
+          </span>
+          <span className="text-lg font-semibold tracking-tight text-ink">CotiMat</span>
         </Link>
 
         <nav className="flex items-center gap-4 sm:gap-6">
           <Link
             to="/historial"
-            className="font-sans text-sm font-medium text-steel hover:text-ink"
+            className="text-sm font-medium text-muted hover:text-ink"
           >
             Historial
           </Link>
@@ -27,7 +30,7 @@ export default function Header() {
           >
             <CartIcon className="h-6 w-6" />
             {count > 0 && (
-              <span className="flex h-5 min-w-5 items-center justify-center border border-ink bg-safety px-1 font-display text-xs font-bold leading-none text-paper">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-xs font-semibold leading-none text-white">
                 {count}
               </span>
             )}

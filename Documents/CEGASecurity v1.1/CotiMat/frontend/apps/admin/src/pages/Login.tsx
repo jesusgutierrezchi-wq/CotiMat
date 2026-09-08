@@ -47,14 +47,17 @@ export function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-blueprint px-4 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-canvas px-4 py-12">
       <div className="w-full max-w-sm">
-        <div className="mb-6 text-center">
-          <h1 className="font-display text-4xl font-bold uppercase tracking-wide text-paper">CotiMat</h1>
-          <p className="mt-1 font-sans text-sm uppercase tracking-wide text-paper/60">Panel administrativo</p>
+        <div className="mb-6 flex flex-col items-center text-center">
+          <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-xl font-semibold text-white">
+            C
+          </span>
+          <h1 className="text-2xl font-semibold tracking-tight text-ink">CotiMat</h1>
+          <p className="mt-1 font-sans text-sm text-muted">Panel administrativo</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="panel p-6" noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className="panel p-6 shadow-md" noValidate>
           <div className="mb-4">
             <label className="field-label" htmlFor="username">
               Usuario
@@ -95,9 +98,9 @@ export function Login() {
             {isSubmitting ? 'Ingresando…' : 'Ingresar'}
           </button>
 
-          <p className="mt-4 border-t-[1.5px] border-dashed border-steel/40 pt-3 text-center font-sans text-xs text-steel">
-            Entorno de desarrollo · usuario <span className="font-semibold text-ink">admin</span> / contraseña{' '}
-            <span className="font-semibold text-ink">admin123</span>
+          <p className="mt-4 border-t border-border pt-3 text-center font-sans text-xs text-muted">
+            Entorno de desarrollo · usuario <span className="font-medium text-ink">admin</span> / contraseña{' '}
+            <span className="font-medium text-ink">admin123</span>
           </p>
         </form>
       </div>

@@ -53,15 +53,15 @@ export default function Catalogo() {
         hasCartItems ? 'lg:pr-80' : ''
       }`}
     >
-      <div className="mb-5 flex flex-col gap-3">
+      <div className="mb-6 flex flex-col gap-3">
         <div className="relative">
-          <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-steel" />
+          <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
             placeholder="Buscar cemento, varilla, block…"
-            className="w-full border-2 border-ink bg-paper py-2.5 pl-10 pr-3 font-sans text-sm text-ink placeholder:text-steel/70 focus:outline-none focus:ring-2 focus:ring-safety"
+            className="w-full rounded-lg border border-border bg-surface py-2.5 pl-10 pr-3 text-sm text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40"
           />
         </div>
 
@@ -75,19 +75,19 @@ export default function Catalogo() {
       </div>
 
       {materialsQuery.isLoading && (
-        <p className="py-10 text-center font-sans text-sm text-steel">Cargando materiales…</p>
+        <p className="py-10 text-center text-sm text-muted">Cargando materiales…</p>
       )}
 
       {materialsQuery.isError && (
-        <p className="py-10 text-center font-sans text-sm text-rejected">
+        <p className="py-10 text-center text-sm text-rejected">
           {getFriendlyErrorMessage(materialsQuery.error)}
         </p>
       )}
 
       {materialsQuery.isSuccess && items.length === 0 && (
         <div className="py-16 text-center">
-          <p className="font-display text-2xl font-bold text-ink">Sin resultados</p>
-          <p className="mt-1 font-sans text-sm text-steel">
+          <p className="text-2xl font-semibold tracking-tight text-ink">Sin resultados</p>
+          <p className="mt-1 text-sm text-muted">
             No encontramos materiales para "{search}". Prueba con otro término o quita el filtro de categoría.
           </p>
         </div>
@@ -96,7 +96,7 @@ export default function Catalogo() {
       {items.length > 0 && (
         <>
           <div
-            className={`grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 ${
+            className={`grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 ${
               hasCartItems ? '2xl:grid-cols-4' : 'lg:grid-cols-4'
             }`}
           >
@@ -111,7 +111,7 @@ export default function Catalogo() {
                 type="button"
                 onClick={() => setPageSize((size) => size + PAGE_SIZE_STEP)}
                 disabled={materialsQuery.isFetching}
-                className="border-2 border-ink bg-paper px-6 py-2.5 font-sans text-sm font-semibold text-ink hover:bg-ink hover:text-paper disabled:opacity-50"
+                className="rounded-lg border border-border bg-surface px-6 py-2.5 text-sm font-semibold text-ink hover:bg-canvas disabled:opacity-50"
               >
                 {materialsQuery.isFetching ? 'Cargando…' : 'Mostrar más materiales'}
               </button>

@@ -1,8 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/auth.store';
 
-const linkBase =
-  'block border-l-4 px-4 py-3 font-sans text-sm font-semibold uppercase tracking-wide transition-colors';
+const linkBase = 'block border-l-2 px-4 py-2.5 font-sans text-sm font-medium transition-colors';
 
 const navItems = [
   { to: '/cotizaciones', label: 'Cotizaciones' },
@@ -21,10 +20,15 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="flex h-full w-56 shrink-0 flex-col bg-blueprint text-paper">
-      <div className="border-b border-paper/20 px-4 py-5">
-        <span className="font-display text-2xl font-bold uppercase tracking-wide">CotiMat</span>
-        <p className="mt-0.5 font-sans text-xs uppercase tracking-wide text-paper/60">Panel admin</p>
+    <aside className="flex h-full w-56 shrink-0 flex-col bg-sidebar text-gray-300">
+      <div className="flex items-center gap-3 border-b border-white/10 px-4 py-5">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-sm font-semibold text-white">
+          C
+        </span>
+        <div className="min-w-0">
+          <span className="block truncate font-sans text-base font-semibold text-white">CotiMat</span>
+          <p className="text-xs text-gray-500">Panel admin</p>
+        </div>
       </div>
 
       <nav className="flex-1 py-3">
@@ -36,8 +40,8 @@ export function Sidebar() {
               [
                 linkBase,
                 isActive
-                  ? 'border-safety bg-paper/10 text-paper'
-                  : 'border-transparent text-paper/70 hover:border-paper/40 hover:bg-paper/5 hover:text-paper',
+                  ? 'border-accent bg-white/5 text-white'
+                  : 'border-transparent text-gray-400 hover:bg-white/5 hover:text-white',
               ].join(' ')
             }
           >
@@ -46,16 +50,16 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="border-t border-paper/20 px-4 py-4">
+      <div className="border-t border-white/10 px-4 py-4">
         {admin && (
-          <p className="mb-3 truncate font-sans text-xs text-paper/60">
-            Sesión: <span className="font-semibold text-paper/90">{admin.username}</span>
+          <p className="mb-3 truncate font-sans text-xs text-gray-500">
+            Sesión: <span className="font-medium text-gray-300">{admin.username}</span>
           </p>
         )}
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full border-[1.5px] border-paper/60 px-3 py-2 font-sans text-xs font-semibold uppercase tracking-wide text-paper transition-colors hover:border-paper hover:bg-paper/10"
+          className="w-full rounded-lg border border-white/15 px-3 py-2 font-sans text-xs font-medium text-gray-300 transition-colors hover:bg-white/5"
         >
           Cerrar sesión
         </button>

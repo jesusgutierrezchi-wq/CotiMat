@@ -98,17 +98,15 @@ export function CotizacionDetalle() {
       <button
         type="button"
         onClick={() => navigate('/cotizaciones')}
-        className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-steel hover:text-ink"
+        className="mb-4 font-sans text-sm font-medium text-muted hover:text-ink"
       >
         ← Volver a cotizaciones
       </button>
 
       <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-ink">
-            Folio {quote.folio}
-          </h1>
-          <p className="mt-1 font-sans text-sm text-steel">Creada el {formatDateTime(quote.createdAt)}</p>
+          <h1 className="text-2xl font-semibold tracking-tight text-ink">Folio {quote.folio}</h1>
+          <p className="mt-1 font-sans text-sm text-muted">Creada el {formatDateTime(quote.createdAt)}</p>
         </div>
         <StatusStamp status={quote.status} size="lg" />
       </div>
@@ -116,35 +114,33 @@ export function CotizacionDetalle() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <section className="panel mb-6 p-4">
-            <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-ink">Cliente</h2>
+            <h2 className="mb-3 text-lg font-semibold text-ink">Cliente</h2>
             <dl className="grid grid-cols-1 gap-3 font-sans text-sm sm:grid-cols-2">
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-steel">Nombre</dt>
+                <dt className="text-xs font-medium text-muted">Nombre</dt>
                 <dd className="text-ink">{quote.client.name || 'No proporcionado'}</dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-steel">Teléfono</dt>
+                <dt className="text-xs font-medium text-muted">Teléfono</dt>
                 <dd className="text-ink">{quote.client.phone}</dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-steel">Correo</dt>
+                <dt className="text-xs font-medium text-muted">Correo</dt>
                 <dd className="text-ink">{quote.client.email || 'No proporcionado'}</dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-steel">Dirección</dt>
+                <dt className="text-xs font-medium text-muted">Dirección</dt>
                 <dd className="text-ink">{quote.client.address || 'No proporcionada'}</dd>
               </div>
             </dl>
           </section>
 
           <section className="panel mb-6 overflow-hidden">
-            <h2 className="border-b-[1.5px] border-ink px-4 py-3 font-display text-xl font-bold uppercase tracking-wide text-ink">
-              Materiales
-            </h2>
+            <h2 className="border-b border-border px-4 py-3 text-lg font-semibold text-ink">Materiales</h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left font-sans text-sm">
                 <thead>
-                  <tr className="border-b border-steel/30 bg-concrete/60 text-xs font-semibold uppercase tracking-wide text-steel">
+                  <tr className="border-b border-border bg-canvas text-xs font-medium text-muted">
                     <th className="px-4 py-2">Material</th>
                     <th className="px-4 py-2">Categoría</th>
                     <th className="px-4 py-2 text-right">Cantidad</th>
@@ -154,9 +150,9 @@ export function CotizacionDetalle() {
                 </thead>
                 <tbody>
                   {quote.items.map((item) => (
-                    <tr key={item.id} className="border-b border-steel/10 last:border-b-0">
+                    <tr key={item.id} className="border-b border-border last:border-b-0">
                       <td className="px-4 py-2 text-ink">{item.material.name}</td>
-                      <td className="px-4 py-2 text-steel">{item.material.category.name}</td>
+                      <td className="px-4 py-2 text-muted">{item.material.category.name}</td>
                       <td className="px-4 py-2 text-right tabular-nums text-ink">
                         {item.quantity} {MATERIAL_UNIT_LABELS[item.material.unit]}
                       </td>
@@ -170,11 +166,11 @@ export function CotizacionDetalle() {
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t-[1.5px] border-ink">
-                    <td colSpan={4} className="px-4 py-3 text-right font-display text-lg font-bold uppercase text-ink">
+                  <tr className="border-t border-border">
+                    <td colSpan={4} className="px-4 py-3 text-right text-base font-semibold text-ink">
                       Total
                     </td>
-                    <td className="px-4 py-3 text-right font-display text-lg font-bold tabular-nums text-ink">
+                    <td className="px-4 py-3 text-right text-base font-semibold tabular-nums text-ink">
                       {formatCurrency(quote.total)}
                     </td>
                   </tr>
@@ -184,16 +180,14 @@ export function CotizacionDetalle() {
           </section>
 
           <section className="panel p-4">
-            <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-ink">
-              Bitácora de seguimiento
-            </h2>
+            <h2 className="mb-3 text-lg font-semibold text-ink">Bitácora de seguimiento</h2>
             {notes.length === 0 ? (
-              <p className="font-sans text-sm text-steel">Aún no hay notas registradas.</p>
+              <p className="font-sans text-sm text-muted">Aún no hay notas registradas.</p>
             ) : (
               <ul className="flex flex-col gap-3">
                 {notes.map((n) => (
-                  <li key={n.id} className="border-l-[3px] border-steel/40 pl-3">
-                    <div className="flex flex-wrap items-center gap-2 font-sans text-xs text-steel">
+                  <li key={n.id} className="border-l-2 border-border pl-3">
+                    <div className="flex flex-wrap items-center gap-2 font-sans text-xs text-muted">
                       <span className="font-semibold text-ink">{n.author.username}</span>
                       <span>{formatDateTime(n.createdAt)}</span>
                       <StatusStamp status={n.statusAtNote} size="sm" />
@@ -208,9 +202,7 @@ export function CotizacionDetalle() {
 
         <div className="flex flex-col gap-6">
           <section className="panel p-4">
-            <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-ink">
-              Cambiar estatus
-            </h2>
+            <h2 className="mb-3 text-lg font-semibold text-ink">Cambiar estatus</h2>
             <form onSubmit={handleStatusSubmit}>
               <div className="mb-3">
                 <label className="field-label" htmlFor="status-select">
@@ -250,9 +242,7 @@ export function CotizacionDetalle() {
           </section>
 
           <section className="panel p-4">
-            <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-ink">
-              Agregar nota de seguimiento
-            </h2>
+            <h2 className="mb-3 text-lg font-semibold text-ink">Agregar nota de seguimiento</h2>
             <form onSubmit={handleNoteSubmit}>
               <div className="mb-3">
                 <label className="field-label" htmlFor="follow-up-note">

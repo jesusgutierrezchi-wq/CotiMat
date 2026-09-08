@@ -8,28 +8,21 @@
   }
 
   body {
-    @apply bg-concrete text-ink font-sans antialiased;
+    @apply bg-canvas text-ink font-sans antialiased;
   }
 
   ::selection {
-    @apply bg-safety text-paper;
+    @apply bg-accent text-white;
   }
 }
 
 @layer utilities {
-  .dashed-divider {
-    background-image: repeating-linear-gradient(
-      to right,
-      rgba(34, 31, 28, 0.35) 0,
-      rgba(34, 31, 28, 0.35) 6px,
-      transparent 6px,
-      transparent 12px
-    );
-    height: 2px;
-  }
-
   .pulse-once {
     animation: pulse-scale 320ms ease-out;
+  }
+
+  .status-pop {
+    animation: status-pop 320ms ease-out;
   }
 
   @keyframes pulse-scale {
@@ -43,10 +36,22 @@
       transform: scale(1);
     }
   }
+
+  @keyframes status-pop {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pulse-once {
+  .pulse-once,
+  .status-pop {
     animation: none;
   }
 }

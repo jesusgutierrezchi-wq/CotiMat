@@ -11,8 +11,8 @@ export function Pagination({ page, pageSize, total, onPageChange }: PaginationPr
   const to = Math.min(total, page * pageSize);
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-t-[1.5px] border-ink px-4 py-3 font-sans text-sm">
-      <span className="text-steel">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-4 py-3 font-sans text-sm">
+      <span className="text-muted">
         {total === 0 ? 'Sin resultados' : `Mostrando ${from}–${to} de ${total}`}
       </span>
       <div className="flex items-center gap-2">
@@ -24,7 +24,7 @@ export function Pagination({ page, pageSize, total, onPageChange }: PaginationPr
         >
           Anterior
         </button>
-        <span className="font-semibold tabular-nums text-ink">
+        <span className="font-medium tabular-nums text-ink">
           {page} / {totalPages}
         </span>
         <button

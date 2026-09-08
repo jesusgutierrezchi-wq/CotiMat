@@ -58,7 +58,7 @@ export function CotizacionesList() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-ink">Cotizaciones</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-ink">Cotizaciones</h1>
       </div>
 
       <div className="panel mb-4 grid grid-cols-1 gap-3 p-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -137,7 +137,7 @@ export function CotizacionesList() {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left font-sans text-sm">
                 <thead>
-                  <tr className="border-b-[1.5px] border-ink bg-concrete/60 text-xs font-semibold uppercase tracking-wide text-steel">
+                  <tr className="border-b border-border bg-canvas text-xs font-medium text-muted">
                     <th className="px-4 py-3">Folio</th>
                     <th className="px-4 py-3">Cliente</th>
                     <th className="px-4 py-3">Fecha</th>
@@ -149,14 +149,14 @@ export function CotizacionesList() {
                   {data.items.map((quote) => (
                     <tr
                       key={quote.id}
-                      className="cursor-pointer border-b border-steel/20 last:border-b-0 hover:bg-blueprint/5"
+                      className="cursor-pointer border-b border-border last:border-b-0 hover:bg-canvas"
                       onClick={() => navigate(`/cotizaciones/${quote.id}`)}
                     >
                       <td className="px-4 py-3 font-semibold text-ink">{quote.folio}</td>
                       <td className="px-4 py-3 text-ink">
                         {quote.client?.name || quote.client?.phone || 'Sin datos'}
                       </td>
-                      <td className="px-4 py-3 tabular-nums text-steel">{formatDate(quote.createdAt)}</td>
+                      <td className="px-4 py-3 tabular-nums text-muted">{formatDate(quote.createdAt)}</td>
                       <td className="px-4 py-3 text-right tabular-nums font-semibold text-ink">
                         {formatCurrency(quote.total)}
                       </td>
@@ -177,7 +177,7 @@ export function CotizacionesList() {
           </>
         )}
         {isFetching && !isLoading && (
-          <div className="border-t border-steel/20 px-4 py-2 font-sans text-xs text-steel">Actualizando…</div>
+          <div className="border-t border-border px-4 py-2 font-sans text-xs text-muted">Actualizando…</div>
         )}
       </div>
     </div>

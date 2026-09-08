@@ -17,7 +17,7 @@ export default function CotizacionDetalle() {
   if (quoteQuery.isLoading) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6">
-        <p className="font-sans text-sm text-steel">Buscando tu cotización…</p>
+        <p className="text-sm text-muted">Buscando tu cotización…</p>
       </div>
     );
   }
@@ -25,13 +25,15 @@ export default function CotizacionDetalle() {
   if (quoteQuery.isError || !quoteQuery.data) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6">
-        <p className="font-display text-3xl font-bold text-ink">No encontramos ese folio</p>
-        <p className="mt-2 font-sans text-sm text-steel">
+        <p className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+          No encontramos ese folio
+        </p>
+        <p className="mt-2 text-sm text-muted">
           {quoteQuery.error ? getFriendlyErrorMessage(quoteQuery.error) : 'Verifica el folio e intenta de nuevo.'}
         </p>
         <Link
           to="/historial"
-          className="mt-6 inline-block bg-ink px-6 py-2.5 font-sans text-sm font-semibold text-paper hover:bg-safety"
+          className="mt-6 inline-block rounded-lg bg-accent px-6 py-2.5 text-sm font-semibold text-white hover:bg-accent/90"
         >
           Ir a mi historial
         </Link>
@@ -50,13 +52,13 @@ export default function CotizacionDetalle() {
   }));
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
-      <div className="flex items-start justify-between gap-4 border-2 border-ink bg-paper p-4 shadow-tag sm:p-6">
+    <div className="mx-auto max-w-2xl space-y-6 px-4 py-6 sm:px-6">
+      <div className="flex items-start justify-between gap-4 rounded-xl border border-border bg-surface p-4 sm:p-6">
         <div>
-          <p className="font-sans text-xs font-medium uppercase tracking-wide text-steel">Folio</p>
-          <p className="font-display text-3xl font-bold text-ink">{quote.folio}</p>
-          <p className="mt-1 font-sans text-xs text-steel">{formatDate(quote.createdAt)}</p>
-          <p className="mt-3 font-sans text-sm text-ink">
+          <p className="text-xs font-medium uppercase tracking-wide text-muted">Folio</p>
+          <p className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">{quote.folio}</p>
+          <p className="mt-1 text-xs text-muted">{formatDate(quote.createdAt)}</p>
+          <p className="mt-3 text-sm text-ink">
             {quote.client.name ? `${quote.client.name} · ` : ''}
             {quote.client.phone}
           </p>
@@ -64,15 +66,13 @@ export default function CotizacionDetalle() {
         <StatusStamp status={quote.status} />
       </div>
 
-      <div className="mt-5">
-        <QuoteItemsTable lines={tableLines} total={quote.total} />
-      </div>
+      <QuoteItemsTable lines={tableLines} total={quote.total} />
 
       <a
         href={getQuotePdfUrl(quote.folio)}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-5 block w-full bg-ink py-3 text-center font-sans text-sm font-semibold text-paper hover:bg-safety"
+        className="block w-full rounded-lg bg-accent py-3 text-center text-sm font-semibold text-white hover:bg-accent/90"
       >
         Descargar PDF
       </a>

@@ -22,8 +22,8 @@ export default function MaterialCard({ material }: MaterialCardProps) {
   };
 
   return (
-    <article className="flex flex-col border-2 border-ink bg-paper shadow-tag">
-      <div className="relative aspect-square w-full overflow-hidden border-b-2 border-ink bg-concrete">
+    <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface">
+      <div className="relative aspect-square w-full overflow-hidden bg-canvas">
         {image ? (
           <img
             src={image}
@@ -33,23 +33,23 @@ export default function MaterialCard({ material }: MaterialCardProps) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <StackIcon className="h-10 w-10 text-steel/50" />
+            <StackIcon className="h-10 w-10 text-muted/50" />
           </div>
         )}
-        <span className="absolute left-0 top-0 border-b-2 border-r-2 border-ink bg-paper px-2 py-0.5 font-sans text-[11px] font-bold uppercase tracking-wide text-steel">
+        <span className="absolute left-2 top-2 rounded-full bg-canvas px-2.5 py-0.5 text-[11px] font-medium text-muted">
           {MATERIAL_UNIT_LABELS[material.unit]}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-3">
         <div>
-          <p className="text-[11px] font-medium text-steel">{material.category.name}</p>
-          <h3 className="font-sans text-sm font-semibold leading-snug text-ink line-clamp-2">
+          <p className="text-[11px] font-medium text-muted">{material.category.name}</p>
+          <h3 className="text-sm font-semibold leading-snug text-ink line-clamp-2">
             {material.name}
           </h3>
         </div>
 
-        <p className="mt-auto font-display text-2xl font-bold leading-none text-safety">
+        <p className="mt-auto text-xl font-semibold leading-none tabular-nums text-ink">
           {formatCurrency(material.unitPrice)}
         </p>
 
@@ -58,7 +58,7 @@ export default function MaterialCard({ material }: MaterialCardProps) {
           <button
             type="button"
             onClick={handleAdd}
-            className="h-9 w-full bg-ink font-sans text-sm font-semibold text-paper hover:bg-safety"
+            className="h-9 w-full rounded-lg bg-accent text-sm font-semibold text-white hover:bg-accent/90"
           >
             Agregar
           </button>

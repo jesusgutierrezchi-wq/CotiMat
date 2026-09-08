@@ -37,52 +37,56 @@ export default function Historial() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
-      <h1 className="font-display text-3xl font-bold text-ink">Tu historial</h1>
-      <p className="mt-1 font-sans text-sm text-steel">
-        Ingresa el teléfono con el que hiciste tus cotizaciones.
-      </p>
+    <div className="mx-auto max-w-2xl space-y-6 px-4 py-6 sm:px-6">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+          Tu historial
+        </h1>
+        <p className="mt-1 text-sm text-muted">
+          Ingresa el teléfono con el que hiciste tus cotizaciones.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-5 flex items-start gap-2">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex items-start gap-2">
         <div className="flex-1">
           <input
             type="tel"
             inputMode="numeric"
             placeholder="5512345678"
             {...register('phone')}
-            className="w-full border-2 border-ink bg-paper px-3 py-2.5 font-sans text-sm text-ink focus:outline-none focus:ring-2 focus:ring-safety"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40"
           />
           {errors.phone && (
-            <p className="mt-1 font-sans text-xs text-rejected">{errors.phone.message}</p>
+            <p className="mt-1 text-xs text-rejected">{errors.phone.message}</p>
           )}
         </div>
         <button
           type="submit"
-          className="shrink-0 bg-ink px-5 py-2.5 font-sans text-sm font-semibold text-paper hover:bg-safety"
+          className="shrink-0 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent/90"
         >
           Buscar
         </button>
       </form>
 
       {quotesQuery.isLoading && (
-        <p className="mt-8 text-center font-sans text-sm text-steel">Buscando cotizaciones…</p>
+        <p className="text-center text-sm text-muted">Buscando cotizaciones…</p>
       )}
 
       {quotesQuery.isError && (
-        <p className="mt-8 text-center font-sans text-sm text-rejected">
+        <p className="text-center text-sm text-rejected">
           {getFriendlyErrorMessage(quotesQuery.error)}
         </p>
       )}
 
       {quotesQuery.isSuccess && quotesQuery.data.length === 0 && (
-        <div className="mt-10 text-center">
-          <p className="font-display text-2xl font-bold text-ink">Sin cotizaciones aún</p>
-          <p className="mt-2 font-sans text-sm text-steel">
+        <div className="text-center">
+          <p className="text-2xl font-semibold tracking-tight text-ink">Sin cotizaciones aún</p>
+          <p className="mt-2 text-sm text-muted">
             No encontramos cotizaciones con ese teléfono. Verifica el número o arma una nueva.
           </p>
           <Link
             to="/"
-            className="mt-5 inline-block bg-ink px-6 py-2.5 font-sans text-sm font-semibold text-paper hover:bg-safety"
+            className="mt-5 inline-block rounded-lg bg-accent px-6 py-2.5 text-sm font-semibold text-white hover:bg-accent/90"
           >
             Ir al catálogo
           </Link>
@@ -90,17 +94,17 @@ export default function Historial() {
       )}
 
       {quotesQuery.data && quotesQuery.data.length > 0 && (
-        <ul className="mt-6 flex flex-col gap-3">
+        <ul className="flex flex-col gap-3">
           {quotesQuery.data.map((quote) => (
             <li key={quote.id}>
               <Link
                 to={`/cotizacion/${quote.folio}`}
-                className="flex items-center justify-between gap-3 border-2 border-ink bg-paper p-4 shadow-tag hover:shadow-tag-lg"
+                className="flex items-center justify-between gap-3 rounded-xl border border-border bg-surface p-4 transition-colors hover:bg-canvas"
               >
                 <div>
-                  <p className="font-display text-xl font-bold text-ink">{quote.folio}</p>
-                  <p className="font-sans text-xs text-steel">{formatDate(quote.createdAt)}</p>
-                  <p className="mt-1 font-sans text-sm font-semibold tabular-nums text-ink">
+                  <p className="text-xl font-semibold tracking-tight text-ink">{quote.folio}</p>
+                  <p className="text-xs text-muted">{formatDate(quote.createdAt)}</p>
+                  <p className="mt-1 text-sm font-semibold tabular-nums text-ink">
                     {formatCurrency(quote.total)}
                   </p>
                 </div>

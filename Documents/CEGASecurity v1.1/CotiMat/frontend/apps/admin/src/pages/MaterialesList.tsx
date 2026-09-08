@@ -62,7 +62,7 @@ export function MaterialesList() {
   return (
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-ink">Materiales</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-ink">Materiales</h1>
         <button type="button" className="btn-primary" onClick={() => navigate('/materiales/nuevo')}>
           Nuevo material
         </button>
@@ -108,7 +108,7 @@ export function MaterialesList() {
               type="checkbox"
               checked={includeInactive}
               onChange={(e) => updateParam('includeInactive', e.target.checked ? 'true' : '')}
-              className="h-4 w-4 border-[1.5px] border-ink accent-blueprint"
+              className="h-4 w-4 rounded border-border accent-accent"
             />
             Incluir inactivos
           </label>
@@ -137,7 +137,7 @@ export function MaterialesList() {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left font-sans text-sm">
                 <thead>
-                  <tr className="border-b-[1.5px] border-ink bg-concrete/60 text-xs font-semibold uppercase tracking-wide text-steel">
+                  <tr className="border-b border-border bg-canvas text-xs font-medium text-muted">
                     <th className="px-4 py-3">Imagen</th>
                     <th className="px-4 py-3">Nombre</th>
                     <th className="px-4 py-3">Categoría</th>
@@ -151,19 +151,19 @@ export function MaterialesList() {
                   {data.items.map((material) => {
                     const imgUrl = resolveImageUrl(material.imageUrl);
                     return (
-                      <tr key={material.id} className="border-b border-steel/20 last:border-b-0 hover:bg-blueprint/5">
+                      <tr key={material.id} className="border-b border-border last:border-b-0 hover:bg-canvas">
                         <td className="px-4 py-2">
-                          <div className="flex h-12 w-12 items-center justify-center border-[1.5px] border-ink bg-concrete">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-canvas">
                             {imgUrl ? (
-                              <img src={imgUrl} alt={material.name} className="h-full w-full object-cover" />
+                              <img src={imgUrl} alt={material.name} className="h-full w-full rounded-lg object-cover" />
                             ) : (
-                              <span className="text-[10px] text-steel">S/I</span>
+                              <span className="text-[10px] text-muted">S/I</span>
                             )}
                           </div>
                         </td>
                         <td className="px-4 py-2 font-semibold text-ink">{material.name}</td>
-                        <td className="px-4 py-2 text-steel">{material.category.name}</td>
-                        <td className="px-4 py-2 text-steel">{MATERIAL_UNIT_LABELS[material.unit]}</td>
+                        <td className="px-4 py-2 text-muted">{material.category.name}</td>
+                        <td className="px-4 py-2 text-muted">{MATERIAL_UNIT_LABELS[material.unit]}</td>
                         <td className="px-4 py-2 text-right tabular-nums text-ink">
                           {formatCurrency(material.unitPrice)}
                         </td>
@@ -171,8 +171,8 @@ export function MaterialesList() {
                           <span
                             className={
                               material.active
-                                ? 'border-[1.5px] border-approved px-2 py-0.5 text-xs font-semibold uppercase text-approved'
-                                : 'border-[1.5px] border-steel px-2 py-0.5 text-xs font-semibold uppercase text-steel'
+                                ? 'inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-approved'
+                                : 'inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-pending'
                             }
                           >
                             {material.active ? 'Activo' : 'Inactivo'}
@@ -182,7 +182,7 @@ export function MaterialesList() {
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
-                              className="btn-ghost border-[1.5px] border-ink px-2 py-1 text-xs shadow-none"
+                              className="rounded-lg border border-border px-2.5 py-1 text-xs font-medium text-ink transition-colors hover:bg-canvas"
                               onClick={() => navigate(`/materiales/${material.id}/editar`)}
                             >
                               Editar
@@ -190,7 +190,7 @@ export function MaterialesList() {
                             {material.active && (
                               <button
                                 type="button"
-                                className="btn-ghost border-[1.5px] border-rejected px-2 py-1 text-xs text-rejected shadow-none"
+                                className="rounded-lg border border-rejected px-2.5 py-1 text-xs font-medium text-rejected transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                                 disabled={deactivateMutation.isPending && pendingDeactivateId === material.id}
                                 onClick={() => {
                                   setPendingDeactivateId(material.id);
@@ -219,7 +219,7 @@ export function MaterialesList() {
           </>
         )}
         {isFetching && !isLoading && (
-          <div className="border-t border-steel/20 px-4 py-2 font-sans text-xs text-steel">Actualizando…</div>
+          <div className="border-t border-border px-4 py-2 font-sans text-xs text-muted">Actualizando…</div>
         )}
       </div>
     </div>
