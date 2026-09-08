@@ -1,0 +1,28 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+build/
+
+# Variables de entorno (usar los .env.example como plantilla)
+.env
+.env.local
+.env.*.local
+
+# Prisma
+api/prisma/dev.db
+
+# Archivos subidos en desarrollo (persisten vía volumen Docker, no en git)
+api/uploads/*
+!api/uploads/.gitkeep
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+*.log

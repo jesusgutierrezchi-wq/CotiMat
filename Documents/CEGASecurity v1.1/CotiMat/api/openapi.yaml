@@ -1,0 +1,332 @@
+openapi: 3.0.3
+info:
+  title: CotiMat API
+  version: "1.0.0"
+  description: >
+    API de cotizaciones de materiales de construcción. Rutas públicas bajo
+    /api/public (catálogo, alta de cliente, cotizaciones) y rutas administrativas
+    bajo /api/admin (protegidas con JWT).
+servers:
+  - url: http://localhost:4000/api
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Category:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+    Material:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        categoryId: { type: string }
+        unit: { type: string, enum: [PIEZA, M2, M3, KG, SACO, LITRO, TONELADA] }
+        unitPrice: { type: number }
+        imageUrl: { type: string, nullable: true }
+        stock: { type: integer, nullable: true }
+        active: { type: boolean }
+    QuoteItemInput:
+      type: object
+      required: [materialId, quantity]
+      properties:
+        materialId: { type: string }
+        quantity: { type: number, minimum: 0.001 }
+    CreateQuoteRequest:
+      type: object
+      required: [clientPhone, items]
+      properties:
+        clientPhone: { type: string, example: "5555550123" }
+        clientName: { type: string }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/QuoteItemInput" }
+    Quote:
+      type: object
+      properties:
+        id: { type: string }
+        folio: { type: string, example: "COT-2026-000123" }
+        status:
+          type: string
+          enum: [PENDIENTE, EN_SEGUIMIENTO, APROBADA, RECHAZADA, CONVERTIDA]
+        total: { type: number }
+        createdAt: { type: string, format: date-time }
+paths:
+  /public/categories:
+    get:
+      summary: Listar categorías
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Category" }
+  /public/materials:
+    get:
+      summary: Catálogo de materiales activos
+      parameters:
+        - in: query
+          name: category
+          schema: { type: string }
+        - in: query
+          name: search
+          schema: { type: string }
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: pageSize
+          schema: { type: integer, default: 24 }
+      responses:
+        "200":
+          description: OK
+  /public/clients:
+    post:
+      summary: Registrar o actualizar cliente por teléfono (idempotente)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [phone]
+              properties:
+                phone: { type: string }
+                name: { type: string }
+                email: { type: string }
+                address: { type: string }
+      responses:
+        "201":
+          description: Cliente registrado/actualizado
+  /public/quotes:
+    post:
+      summary: Crear cotización
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateQuoteRequest" }
+      responses:
+        "201":
+          description: Cotización creada
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Quote" }
+    get:
+      summary: Historial de cotizaciones por teléfono
+      parameters:
+        - in: query
+          name: phone
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+  /public/quotes/{folio}:
+    get:
+      summary: Detalle de cotización por folio
+      parameters:
+        - in: path
+          name: folio
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: No encontrada
+  /public/quotes/{folio}/pdf:
+    get:
+      summary: Descargar cotización en PDF
+      parameters:
+        - in: path
+          name: folio
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Archivo PDF
+          content:
+            application/pdf: {}
+  /admin/auth/login:
+    post:
+      summary: Login de administrador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string }
+                password: { type: string }
+      responses:
+        "200":
+          description: Token JWT emitido
+  /admin/auth/me:
+    get:
+      summary: Perfil del administrador autenticado
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: OK
+  /admin/materials:
+    get:
+      summary: Listar materiales (incluye inactivos con includeInactive=true)
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: OK
+    post:
+      summary: Crear material
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Material" }
+      responses:
+        "201":
+          description: Creado
+  /admin/materials/{id}:
+    put:
+      summary: Actualizar material
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Actualizado
+    delete:
+      summary: Desactivar material (soft delete)
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "204":
+          description: Sin contenido
+  /admin/materials/{id}/image:
+    post:
+      summary: Subir imagen de material (multipart/form-data, campo "image")
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image: { type: string, format: binary }
+      responses:
+        "200":
+          description: Material actualizado con imageUrl
+  /admin/categories:
+    get:
+      summary: Listar categorías
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: OK }
+    post:
+      summary: Crear categoría
+      security: [{ bearerAuth: [] }]
+      responses:
+        "201": { description: Creada }
+  /admin/quotes:
+    get:
+      summary: Listar cotizaciones con filtros
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: query
+          name: status
+          schema: { type: string }
+        - in: query
+          name: dateFrom
+          schema: { type: string, format: date }
+        - in: query
+          name: dateTo
+          schema: { type: string, format: date }
+        - in: query
+          name: search
+          schema: { type: string, description: "teléfono o nombre del cliente" }
+      responses:
+        "200": { description: OK }
+  /admin/quotes/{id}:
+    get:
+      summary: Detalle de cotización (incluye notas internas)
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+  /admin/quotes/{id}/status:
+    patch:
+      summary: Cambiar estatus de cotización (registra QuoteNote automática)
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [PENDIENTE, EN_SEGUIMIENTO, APROBADA, RECHAZADA, CONVERTIDA]
+                note: { type: string }
+      responses:
+        "200": { description: Actualizada }
+  /admin/quotes/{id}/notes:
+    post:
+      summary: Agregar nota interna de seguimiento
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [note]
+              properties:
+                note: { type: string }
+      responses:
+        "200": { description: Nota agregada }
+  /admin/clients:
+    get:
+      summary: Buscar clientes
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: OK }

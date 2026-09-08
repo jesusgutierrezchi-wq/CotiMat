@@ -1,0 +1,14 @@
+{
+  "name": "cotimat-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:cliente": "npm run dev --workspace=apps/cliente",
+    "dev:admin": "npm run dev --workspace=apps/admin",
+    "build:cliente": "npm run build --workspace=apps/cliente",
+    "build:admin": "npm run build --workspace=apps/admin"
+  }
+}

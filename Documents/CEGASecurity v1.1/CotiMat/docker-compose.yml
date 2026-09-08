@@ -1,0 +1,68 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: cotimat
+      POSTGRES_PASSWORD: cotimat
+      POSTGRES_DB: cotimat
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - cotimat_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cotimat"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./api
+    environment:
+      PORT: 4000
+      NODE_ENV: development
+      DATABASE_URL: postgresql://cotimat:cotimat@db:5432/cotimat?schema=public
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-production-please}
+      JWT_EXPIRES_IN: 8h
+      CORS_ORIGINS: http://localhost:${CLIENTE_PORT:-5183},http://localhost:${ADMIN_PORT:-5184}
+      UPLOADS_DIR: uploads
+      SEED_ADMIN_USERNAME: ${SEED_ADMIN_USERNAME:-admin}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-admin123}
+    ports:
+      - "${API_PORT:-4010}:4000"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+      - cotimat_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    # En cada arranque: aplica migraciones pendientes, siembra datos demo (idempotente) y levanta con hot-reload.
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed && npm run dev"
+
+  frontend-cliente:
+    build: ./frontend/apps/cliente
+    environment:
+      VITE_API_URL: http://localhost:${API_PORT:-4010}/api
+    ports:
+      - "${CLIENTE_PORT:-5183}:5173"
+    volumes:
+      - ./frontend/apps/cliente:/app
+      - /app/node_modules
+    depends_on:
+      - api
+
+  frontend-admin:
+    build: ./frontend/apps/admin
+    environment:
+      VITE_API_URL: http://localhost:${API_PORT:-4010}/api
+    ports:
+      - "${ADMIN_PORT:-5184}:5174"
+    volumes:
+      - ./frontend/apps/admin:/app
+      - /app/node_modules
+    depends_on:
+      - api
+
+volumes:
+  cotimat_db_data:
+  cotimat_uploads:
