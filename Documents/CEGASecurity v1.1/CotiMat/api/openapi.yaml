@@ -179,6 +179,13 @@ paths:
       responses:
         "200":
           description: OK
+  /admin/dashboard:
+    get:
+      summary: Resumen agregado para el dashboard (KPIs, tendencia, top materiales, recientes)
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: OK
   /admin/materials:
     get:
       summary: Listar materiales (incluye inactivos con includeInactive=true)

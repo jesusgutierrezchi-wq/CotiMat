@@ -28,7 +28,7 @@ export function Login() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   if (token) {
-    const redirectTo = (location.state as { from?: string } | null)?.from || '/cotizaciones';
+    const redirectTo = (location.state as { from?: string } | null)?.from || '/';
     return <Navigate to={redirectTo} replace />;
   }
 
@@ -38,7 +38,7 @@ export function Login() {
     try {
       const { token: newToken, admin } = await login(values.username, values.password);
       setSession(newToken, admin);
-      navigate('/cotizaciones', { replace: true });
+      navigate('/', { replace: true });
     } catch (err) {
       setServerError(getErrorMessage(err, 'Usuario o contraseña incorrectos.'));
     } finally {

@@ -3,6 +3,7 @@ import { useAuthStore } from '../store/auth.store';
 import type {
   Category,
   Client,
+  DashboardSummary,
   LoginResponse,
   Material,
   MaterialUnit,
@@ -73,6 +74,13 @@ export async function login(username: string, password: string): Promise<LoginRe
 
 export async function getMe() {
   const { data } = await api.get('/admin/auth/me');
+  return data;
+}
+
+// ---------- Dashboard ----------
+
+export async function fetchDashboard(): Promise<DashboardSummary> {
+  const { data } = await api.get<DashboardSummary>('/admin/dashboard');
   return data;
 }
 

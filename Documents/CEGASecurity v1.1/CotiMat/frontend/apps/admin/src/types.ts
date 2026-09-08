@@ -117,3 +117,46 @@ export interface Quote {
 export interface ApiErrorPayload {
   error: string;
 }
+
+export interface DashboardTotals {
+  quotesAllTime: number;
+  quotesThisMonth: number;
+  quotesLastMonth: number;
+  totalQuotedAmount: number;
+  conversionRate: number;
+}
+
+export interface DashboardStatusCount {
+  status: QuoteStatus;
+  count: number;
+}
+
+export interface DashboardDayCount {
+  date: string;
+  count: number;
+}
+
+export interface DashboardTopMaterial {
+  materialId: string;
+  name: string;
+  unit: MaterialUnit;
+  timesQuoted: number;
+}
+
+export interface DashboardRecentQuote {
+  id: string;
+  folio: string;
+  clientName: string | null;
+  clientPhone: string;
+  total: number;
+  status: QuoteStatus;
+  createdAt: string;
+}
+
+export interface DashboardSummary {
+  totals: DashboardTotals;
+  statusBreakdown: DashboardStatusCount[];
+  quotesByDay: DashboardDayCount[];
+  topMaterials: DashboardTopMaterial[];
+  recentQuotes: DashboardRecentQuote[];
+}

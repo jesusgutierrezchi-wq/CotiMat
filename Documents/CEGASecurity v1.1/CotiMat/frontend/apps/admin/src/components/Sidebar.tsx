@@ -4,6 +4,7 @@ import { useAuthStore } from '../store/auth.store';
 const linkBase = 'block border-l-2 px-4 py-2.5 font-sans text-sm font-medium transition-colors';
 
 const navItems = [
+  { to: '/', label: 'Dashboard', end: true },
   { to: '/cotizaciones', label: 'Cotizaciones' },
   { to: '/materiales', label: 'Materiales' },
   { to: '/categorias', label: 'Categorías' },
@@ -36,6 +37,7 @@ export function Sidebar() {
           <NavLink
             key={item.to}
             to={item.to}
+            end={item.end}
             className={({ isActive }) =>
               [
                 linkBase,
